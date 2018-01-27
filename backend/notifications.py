@@ -21,8 +21,8 @@ def _set_value(key, value):
     return root.child(key).set(value)
 
 
-def get_police_token():
-    return _get_value('policeToken')
+def get_police_nofication():
+    return _get_value('policeNotification')
 
 
 def set_police_nofication(notification):
