@@ -1,0 +1,3 @@
+__pycache__/
+backend.egg-info/
+service-account-key.json
