@@ -7,8 +7,8 @@
 docker build -t backend .
 
 # run docker image in development mode
-docker run --env-file .env --env FLASK_DEBUG=true --volume $PWD:/usr/src/app -p 5000:5000 -it backend
+docker run --env-file .env --env FLASK_DEBUG=true --volume $PWD:/usr/src/app -p 80:5000 -it backend
 
 # run docker image
-docker run --env-file .env -p 5000:5000 backend
+docker run --env-file .env -p 80:5000 backend
 ```
