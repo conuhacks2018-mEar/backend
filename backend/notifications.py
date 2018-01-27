@@ -20,7 +20,7 @@ def _set_value(key, value):
 
 
 def get_police_token():
-    return _get_value('police')
+    return _get_value('policeToken')
 
 
 def set_police_nofication(notification):
