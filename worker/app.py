@@ -2,6 +2,7 @@
 """
 
 import logging
+import os
 
 from apscheduler.schedulers.blocking import BlockingScheduler
 import redis
@@ -9,7 +10,7 @@ import redis
 import label_wav
 import notifications
 
-
+LABEL_PROB_THRESHOLD = float(os.environ['LABEL_PROB_THRESHOLD'])
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -18,26 +19,29 @@ r = redis.Redis(host='redis', decode_responses=True)
 
 def check_new_files():
     while True:
-        next_file = r.lpop('files')
-        if not next_file:
+        next_wav_id = r.lpop('wav_id')
+        if not next_wav_id:
             return
+        next_file = f'/data/{next_wav_id}.wav'
         logger.info(f'processing {next_file}')
         result, error = None, None
         try:
             result = label_wav.label_wav(next_file)
+            logger.info('result from label_wav: ' + str(result))
         except Exception as e:
             error = e
-        logger.info('result from label_wav: ' + str(result))
-        logger.info('error from label_wav: ' + str(error))
+            logger.info('error from label_wav: ' + str(error))
+            continue
         # logger.info('error from label_wav: ' + 'testing')
         # do something with result
-        for key in result:
-            result[key] = str(result[key])
-        if not error:
+        for k, v in result.items():
+            label = k
+            label_prob = v
+        if label_prob > LABEL_PROB_THRESHOLD:
             notifications.push_police_notification({
-                'filename': next_file,
-                'notification': 'something',
-                'label_wav_result': result,
+                'wav_id': next_wav_id,
+                'label': label,
+                'label_prob': str(label_prob),
             })
 
 

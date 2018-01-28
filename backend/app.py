@@ -17,12 +17,10 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 r = redis.Redis(host='redis', decode_responses=True)
 
-UPLOAD_FOLDER = '/data'
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs('/data', exist_ok=True)
 ALLOWED_EXTENSIONS = set(['wav'])
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 @app.route('/')
@@ -49,7 +47,7 @@ def upload_wav():
     # make sure filename is correct
     if file and allowed_file(file.filename):
         filename_uuid = str(uuid.uuid4())
-        filename = os.path.join(app.config['UPLOAD_FOLDER'],  f'{filename_uuid}.wav')
+        filename = f'/data/{filename_uuid}.wav'
         file.save(filename)
-        r.rpush('files', filename)
-        return jsonify({'status': 'ok', 'message': 'uploaded successfully', 'filename': filename})
+        r.rpush('wav_id', filename_uuid)
+        return jsonify({'status': 'ok', 'message': 'uploaded successfully', 'wav_id': filename_uuid})
