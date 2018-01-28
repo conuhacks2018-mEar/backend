@@ -1,0 +1,4 @@
+apscheduler
+firebase-admin
+redis
+tensorflow
