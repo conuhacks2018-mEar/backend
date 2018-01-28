@@ -52,4 +52,4 @@ def upload_wav():
         filename = os.path.join(app.config['UPLOAD_FOLDER'],  f'{filename_uuid}.wav')
         file.save(filename)
         r.rpush('files', filename)
-        return jsonify({'status': 'ok', 'message': f'uploaded successfully to {filename}'})
+        return jsonify({'status': 'ok', 'message': 'uploaded successfully', 'filename': filename})
