@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+    backend:
+        build: .
+        env_file: .env
+        volumes:
+            - data:/data
+        ports:
+            - 80:5000
+
+    worker:
+        build: .
+        volumes:
+            - data:/data
+        command: python -m worker
+
+    redis:
+        image: redis:latest
+        volumes:
+            - db-data:/data
+
+volumes:
+    data:
+    db-data:
