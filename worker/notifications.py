@@ -29,5 +29,9 @@ def set_police_nofication(notification):
     return _set_value('policeNotification', notification)
 
 
+def _push_notification(child, notification):
+    return root.child(chilh).push().set(notification)
+
+
 def push_police_notification(notification):
-    return root.child('policeNotification').push().set(notification)
+    return _push_notification('policeNotification', notification)
