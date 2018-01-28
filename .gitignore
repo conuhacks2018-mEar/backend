@@ -2,3 +2,4 @@ __pycache__/
 backend.egg-info/
 .env
 service-account-key.json
+*.wav
