@@ -32,8 +32,6 @@ def check_new_files():
             error = e
             logger.info('error from label_wav: ' + str(error))
             continue
-        # logger.info('error from label_wav: ' + 'testing')
-        # do something with result
         for k, v in result.items():
             label = k
             label_prob = v
