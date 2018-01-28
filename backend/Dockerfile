@@ -5,8 +5,6 @@ WORKDIR /usr/src/app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY . .
-RUN pip install -e .
+COPY app.py .
 
-ENV FLASK_APP=backend
-CMD flask run --host 0.0.0.0
+CMD FLASK_APP=app.py flask run --host 0.0.0.0

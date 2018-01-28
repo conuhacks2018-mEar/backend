@@ -1,4 +1,0 @@
-apscheduler
-firebase-admin
-flask
-redis
