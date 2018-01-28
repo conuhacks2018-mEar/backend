@@ -30,7 +30,7 @@ def set_police_nofication(notification):
 
 
 def _push_notification(child, notification):
-    return root.child(chilh).push().set(notification)
+    return root.child(child).push().set(notification)
 
 
 def push_police_notification(notification):
