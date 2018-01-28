@@ -2,7 +2,7 @@ version: '3'
 
 services:
     backend:
-        build: .
+        build: ./backend
         env_file: .env
         volumes:
             - data:/data
@@ -10,10 +10,10 @@ services:
             - 80:5000
 
     worker:
-        build: .
+        build: ./worker
+        env_file: .env
         volumes:
             - data:/data
-        command: python -m worker
 
     redis:
         image: redis:latest
