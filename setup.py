@@ -2,5 +2,5 @@ from setuptools import setup
 
 setup(
     name='backend',
-    packages=['backend'],
+    packages=['backend', 'worker'],
 )
