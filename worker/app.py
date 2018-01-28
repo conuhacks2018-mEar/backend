@@ -16,6 +16,12 @@ logger = logging.getLogger(__name__)
 
 r = redis.Redis(host='redis', decode_responses=True)
 
+# clean out old files
+for filename in os.listdir('/data'):
+    os.remove(f'/data/{filename}')
+
+# delete previos redis values
+r.delete('wav_id')
 
 def check_new_files():
     while True:
@@ -44,5 +50,5 @@ def check_new_files():
 
 
 scheduler = BlockingScheduler()
-scheduler.add_job(check_new_files, 'interval', seconds=5)
+scheduler.add_job(check_new_files, 'interval', seconds=5, max_instances=10000)
 scheduler.start()
